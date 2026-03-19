@@ -26,6 +26,34 @@ bool isDuplicate(Student arr[], int size, int id) {
     return false;
 }
 
+
+void inputStudents(Student arr[], int n) {
+    for (int i = 0; i < n; i++) {
+        cout << "\nStudent " << i + 1 << endl;
+
+        do {
+            cout << "ID: ";
+            cin >> arr[i].id;
+
+            if (isDuplicate(arr, i, arr[i].id))
+                cout << "ID already exists! Try again.\n\n";
+            else break;
+
+        } while (true);
+
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        cout << "Name: ";
+        getline(cin, arr[i].name);
+
+        cout << "Course: ";
+        getline(cin, arr[i].course);
+
+        cout << "GPA: ";
+        cin >> arr[i].gpa;
+    }
+}
+
 void displayStudents(Student arr[], int n) {
 
     cout << "\nStudent Records:\n\n";
@@ -53,36 +81,13 @@ int main() {
 
     do {
         system("cls");
+
         cout << "Enter number of students: ";
         cin >> n;
 
-
         Student students[n];
 
-        for (int i = 0; i < n; i++) {
-            cout << "\nStudent " << i + 1 << endl;
-
-            do {
-                cout << "ID: ";
-                cin >> students[i].id;
-
-                if (isDuplicate(students, i, students[i].id))
-                    cout << "ID already exists! Try again.\n\n";
-                else break;
-
-            } while (true);
-
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-            cout << "Name: ";
-            getline(cin, students[i].name);
-
-            cout << "Course: ";
-            getline(cin, students[i].course);
-
-            cout << "GPA: ";
-            cin >> students[i].gpa;
-        }
+        inputStudents(students, n);
 
         displayStudents(students, n);
 
@@ -90,5 +95,6 @@ int main() {
         cin >> choice;
 
     } while (tolower(choice) == 'y');
-        return 0;
+
+    return 0;
 }
